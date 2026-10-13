@@ -1,0 +1,46 @@
+# =====================================================================
+# Transfer learning: 628Ah PINN  ->  314Ah temperature estimation
+# Reproduces the paper's best result: Test MAE = 1.358 C, R2 = 0.9864
+# =====================================================================
+
+# ---- paths (relative to the repository root) ----
+target_file: "data/eis_features_314Ah.xlsx"
+target_sheet: "Selected_Features"
+preprocessor_dir: "artifacts/preprocessors"
+weights_dir: "artifacts/weights"
+feature_name: "feature_columns_628Ah.json"
+imputer_name: "imputer_628Ah.pkl"
+scaler_name: "scaler_628Ah.pkl"
+pretrained_weights_name: "pinn_628Ah_pretrained.weights.h5"
+finetuned_weights_name: "pinn_628_to_314_finetuned.weights.h5"
+out_dir: "outputs/314Ah_transfer"    # predictions .xlsx + scatter .png
+
+# ---- data split ----
+seed: 25
+ft_fraction: 0.20          # fraction of 314Ah labels used for fine-tuning (<= 0.20)
+
+# ---- fine-tuning (only the last regression layer is trainable) ----
+ft_method: "finetune"      # "finetune" (gradient) or "ridge" (closed form)
+ft_epochs: 1200
+ft_lr: 0.00035
+batch_size: 4
+huber_delta: 8.0           # large delta ~ MSE: suppresses the few large errors
+lam: 0.3                   # weight of the Arrhenius physics loss
+ridge_alpha: 0.3           # only used when ft_method = "ridge"
+
+# ---- cosine-restart learning-rate schedule ----
+use_lr_schedule: true
+lr_first_fraction: 0.25    # first restart period as a fraction of total steps
+lr_m_mul: 0.8              # peak-LR decay after each restart
+lr_alpha: 0.02             # min_lr / initial_lr
+
+# ---- model architecture + Arrhenius prior ----
+model:
+  hidden_units: [128, 128, 128, 128, 128, 128]
+  use_residual_blocks: true
+  tmin_c: -20.0
+  tmax_c: 45.0
+  # 314Ah Arrhenius fit (n=150, R^2=0.9988):  ln(1/Rct) = 40.855 - 9558.6/T
+  # Ea = 79.47 kJ/mol, A = 1.807e-18 Ohm
+  arr_b: 9558.6
+  arr_intercept: 40.855

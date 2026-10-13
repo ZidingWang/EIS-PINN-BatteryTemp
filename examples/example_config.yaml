@@ -1,0 +1,30 @@
+# Minimal example config for a quick transfer-learning run.
+# Copy this file, edit the paths/hyperparameters, and run:
+#   python -m src.train_transfer --config examples/example_config.yaml
+
+target_file: "data/eis_features_314Ah.xlsx"
+target_sheet: "Selected_Features"
+preprocessor_dir: "artifacts/preprocessors"
+weights_dir: "artifacts/weights"
+out_dir: "outputs/example_run"
+
+seed: 25
+ft_fraction: 0.20
+
+# A faster, lighter run than the paper-best config (fewer epochs).
+ft_method: "finetune"
+ft_epochs: 400
+ft_lr: 0.0005
+batch_size: 8
+huber_delta: 1.0
+lam: 0.3
+
+use_lr_schedule: true
+
+model:
+  hidden_units: [128, 128, 128, 128, 128, 128]
+  use_residual_blocks: true
+  tmin_c: -20.0
+  tmax_c: 45.0
+  arr_b: 9558.6
+  arr_intercept: 40.855

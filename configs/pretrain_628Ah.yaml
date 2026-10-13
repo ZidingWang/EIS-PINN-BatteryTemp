@@ -1,0 +1,38 @@
+# =====================================================================
+# Pre-training of the source 628Ah PINN model (5-fold CV + final fit)
+# =====================================================================
+
+# ---- paths (relative to the repository root) ----
+file_path: "data/eis_features_628Ah.xlsx"
+sheet_name: "Selected_Features"
+out_dir: "outputs/pretrain_628Ah"
+
+# ---- splits / seeds ----
+seed: 42
+final_seed: 2024
+cv_seed: 2026
+test_size: 0.20
+n_splits: 5
+
+# ---- training ----
+max_epochs: 800
+patience: 100
+lr_patience: 40
+lr_factor: 0.5
+min_lr: 0.000001
+learning_rate: 0.001
+batch_size: 8
+huber_delta: 0.5
+lam: 0.3
+final_epochs_override: 299    # set to 0 to use the CV median instead
+
+# ---- model architecture + Arrhenius prior ----
+model:
+  hidden_units: [128, 128, 128, 128, 128, 128]
+  use_residual_blocks: true
+  tmin_c: -20.0
+  tmax_c: 45.0
+  # Source 628Ah Arrhenius prior used during pre-training:
+  #   ln(1/Rct) = 40.3055 - 8972.0/T
+  arr_b: 8972.0
+  arr_intercept: 40.3055

@@ -1,0 +1,49 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- Virtual environments ----
+venv/
+env/
+.venv/
+.conda/
+
+# ---- IDE / OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---- Data (do not publish raw battery datasets) ----
+data/*.xlsx
+data/*.csv
+data/*.mat
+data/*.npz
+
+# ---- Model / preprocessing artifacts (ignored by default) ----
+*.h5
+*.weights.h5
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.ckpt
+# ...but DO ship the small artifacts (preprocessors + weights, < 1.5 MB total)
+# so the transfer script runs out of the box:
+!artifacts/weights/*.h5
+!artifacts/weights/*.weights.h5
+!artifacts/preprocessors/*.pkl
+
+# ---- Run outputs (regenerated on every run); keep only the folder README ----
+outputs/*
+!outputs/README.md
+# ...but DO commit the demo outputs (any other outputs/ sub-folder stays ignored):
+!outputs/examples/
+results/
+figures/
+logs/
+runs/
+wandb/
+*.log

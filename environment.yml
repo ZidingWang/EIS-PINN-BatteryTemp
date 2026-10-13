@@ -1,0 +1,16 @@
+name: battery-pinn-transfer
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - pip:
+      - tensorflow==2.10.1
+      - numpy==1.23.5
+      - pandas==2.2.3
+      - scikit-learn==1.7.2
+      - matplotlib==3.10.0
+      - joblib==1.5.2
+      - PyYAML==6.0.3
+      - openpyxl==3.1.5

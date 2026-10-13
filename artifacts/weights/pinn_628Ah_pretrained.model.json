@@ -1,0 +1,10 @@
+{
+  "model": {
+    "hidden_units": [128, 128, 128, 128, 128, 128],
+    "use_residual_blocks": true,
+    "tmin_c": -20.0,
+    "tmax_c": 45.0,
+    "arr_b": 8972.0,
+    "arr_intercept": 40.3055
+  }
+}

@@ -1,0 +1,11 @@
+# Python 3.10 recommended. Pinned to the versions used to produce the paper
+# results; nearby versions generally work but TensorFlow 2.10.x is advised for
+# bit-for-bit reproducibility of the deterministic CPU runs.
+tensorflow==2.10.1
+numpy==1.23.5
+pandas==2.2.3
+scikit-learn==1.7.2
+matplotlib==3.10.0
+joblib==1.5.2
+PyYAML==6.0.3
+openpyxl==3.1.5

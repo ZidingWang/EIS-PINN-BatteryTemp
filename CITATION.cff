@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite it as below."
+title: "EIS-PINN-BatteryTemp: PINN transfer learning for battery temperature (628Ah to 314Ah)"
+authors:
+  - family-names: Wang
+    given-names: Ziding
+    email: zidingwang95@gmail.com
+version: "2.0.0"
+date-released: "2026-10-13"
+license: MIT
+keywords:
+  - physics-informed neural network
+  - transfer learning
+  - lithium-ion battery
+  - temperature estimation
+  - electrochemical impedance spectroscopy
+  - Arrhenius equation
